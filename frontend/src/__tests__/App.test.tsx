@@ -4,10 +4,13 @@ import App from "../App";
 import userEvent from "@testing-library/user-event";
 import {when} from "jest-when";
 import {createTeam, getTeams} from "../teamsApiClient";
+import {getPeople} from "../peopleApiClient";
 
 jest.mock("../teamsApiClient");
+jest.mock("../peopleApiClient")
 
 const getTeamsApiClient = getTeams as jest.MockedFunction<typeof getTeams>;
+const getPeopleApiClient = getPeople as jest.MockedFunction<typeof getPeople>
 
 describe("Teams Page", () => {
   describe("when the page loads", () => {
@@ -22,7 +25,7 @@ describe("Teams Page", () => {
     });
   });
 
-  describe("creating", () => {
+  describe("creating team", () => {
 
     it("appends the team name to the list", async () => {
       when(createTeam)
@@ -39,4 +42,18 @@ describe("Teams Page", () => {
       expect(await screen.findByText("example-team-name")).toBeVisible();
     });
   });
+
+  describe("creating a person", () => {
+    it('should contain the required fields to create a person', () => {
+      getTeamsApiClient.mockResolvedValueOnce([]);
+
+      render(<App/>)
+
+      expect(screen.getByLabelText(/First Name/i)).toBeVisible()
+      expect(screen.getByLabelText(/First Name/i)).toBeRequired()
+      expect(screen.getByLabelText(/Last Name/i)).toBeVisible()
+      expect(screen.getByLabelText(/Last Name/i)).toBeRequired()
+
+    });
+  })
 });

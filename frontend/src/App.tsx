@@ -34,6 +34,14 @@ function App() {
           Team Name
           <input name="team-name" type="text" onChange={setTeamNameFromInput} />
         </label>
+        <label>
+          First Name
+          <input name="first-name" type="text" required={true}/>
+        </label>
+        <label>
+          Last Name
+          <input name="last-name" type="text" required={true}/>
+        </label>
         <button type="submit">Submit</button>
       </form>
     </>
