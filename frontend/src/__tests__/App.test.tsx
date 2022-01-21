@@ -4,13 +4,11 @@ import App from "../App";
 import userEvent from "@testing-library/user-event";
 import {when} from "jest-when";
 import {createTeam, getTeams} from "../teamsApiClient";
-import {getPeople} from "../peopleApiClient";
 
 jest.mock("../teamsApiClient");
 jest.mock("../peopleApiClient")
 
 const getTeamsApiClient = getTeams as jest.MockedFunction<typeof getTeams>;
-// const getPeopleApiClient = getPeople as jest.MockedFunction<typeof getPeople>
 
 describe("Teams Page", () => {
   describe("when the page loads", () => {
@@ -42,22 +40,4 @@ describe("Teams Page", () => {
       expect(await screen.findByText("example-team-name")).toBeVisible();
     });
   });
-
-  describe("creating a person", () => {
-    it('should contain the required fields to create a person', async () => {
-      getTeamsApiClient.mockResolvedValue([]);
- 
-      render(<App/>)
-
-      expect(await screen.getByLabelText(/First Name/i)).toBeVisible()
-      expect(await screen.getByLabelText(/First Name/i)).toBeRequired()
-      expect(await screen.getByLabelText(/Last Name/i)).toBeVisible()
-      expect(await screen.getByLabelText(/Last Name/i)).toBeRequired()
-
-    });
-
-    it('should disable the submit button ', () => {
-      
-    });
-  })
 });

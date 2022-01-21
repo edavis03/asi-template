@@ -36,16 +36,6 @@ function App() {
         </label>
         <button type="submit">Submit</button>
       </form>
-      <form>
-        <label>
-          First Name
-          <input name="first-name" type="text" required={true}/>
-        </label>
-        <label>
-          Last Name
-          <input name="last-name" type="text" required={true}/>
-        </label>
-      </form>
     </>
   );
 }
