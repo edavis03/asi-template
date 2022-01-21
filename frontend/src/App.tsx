@@ -34,6 +34,9 @@ function App() {
           Team Name
           <input name="team-name" type="text" onChange={setTeamNameFromInput} />
         </label>
+        <button type="submit">Submit</button>
+      </form>
+      <form>
         <label>
           First Name
           <input name="first-name" type="text" required={true}/>
@@ -42,7 +45,6 @@ function App() {
           Last Name
           <input name="last-name" type="text" required={true}/>
         </label>
-        <button type="submit">Submit</button>
       </form>
     </>
   );

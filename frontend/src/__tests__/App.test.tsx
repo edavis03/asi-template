@@ -10,7 +10,7 @@ jest.mock("../teamsApiClient");
 jest.mock("../peopleApiClient")
 
 const getTeamsApiClient = getTeams as jest.MockedFunction<typeof getTeams>;
-const getPeopleApiClient = getPeople as jest.MockedFunction<typeof getPeople>
+// const getPeopleApiClient = getPeople as jest.MockedFunction<typeof getPeople>
 
 describe("Teams Page", () => {
   describe("when the page loads", () => {
@@ -44,16 +44,20 @@ describe("Teams Page", () => {
   });
 
   describe("creating a person", () => {
-    it('should contain the required fields to create a person', () => {
-      getTeamsApiClient.mockResolvedValueOnce([]);
-
+    it('should contain the required fields to create a person', async () => {
+      getTeamsApiClient.mockResolvedValue([]);
+ 
       render(<App/>)
 
-      expect(screen.getByLabelText(/First Name/i)).toBeVisible()
-      expect(screen.getByLabelText(/First Name/i)).toBeRequired()
-      expect(screen.getByLabelText(/Last Name/i)).toBeVisible()
-      expect(screen.getByLabelText(/Last Name/i)).toBeRequired()
+      expect(await screen.getByLabelText(/First Name/i)).toBeVisible()
+      expect(await screen.getByLabelText(/First Name/i)).toBeRequired()
+      expect(await screen.getByLabelText(/Last Name/i)).toBeVisible()
+      expect(await screen.getByLabelText(/Last Name/i)).toBeRequired()
 
+    });
+
+    it('should disable the submit button ', () => {
+      
     });
   })
 });

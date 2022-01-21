@@ -26,3 +26,6 @@ realized i made my mock too soon will leave it at top of test for now to use lat
 
 note to self remember to put mock for team call when app is rendered. Might be a reason to separate out into components
 jury still out on that
+
+started again this morning. looking at code realized I need to move the create person fields out of the create teams
+form field
