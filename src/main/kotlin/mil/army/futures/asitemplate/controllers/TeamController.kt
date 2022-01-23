@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RestController
 class TeamController(private val teamRepository: TeamRepository) {
 
     @GetMapping("/teams")
-    fun getTeam(): List<String> {
-        return teamRepository.findAll().map { it.name }
+    fun getTeam(): List<Team> {
+        return teamRepository.findAll()
     }
 
     @PostMapping("/team")
-    fun createTeam(@RequestBody teamName: String): String {
-        return teamRepository.save(Team(name = teamName)).name
+    fun createTeam(@RequestBody teamName: String): Team {
+        return teamRepository.save(Team(name = teamName))
     }
 }

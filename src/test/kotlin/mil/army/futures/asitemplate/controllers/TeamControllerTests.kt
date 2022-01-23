@@ -4,6 +4,7 @@ import com.ninjasquad.springmockk.MockkBean
 import io.mockk.every
 import io.mockk.verify
 import mil.army.futures.asitemplate.Team
+import mil.army.futures.asitemplate.repositories.PersonRepository
 import mil.army.futures.asitemplate.repositories.TeamRepository
 import org.hamcrest.CoreMatchers.containsString
 import org.junit.jupiter.api.Test
@@ -20,6 +21,10 @@ import org.springframework.test.web.servlet.post
 internal class TeamControllerTests {
     @Autowired
     private lateinit var mockMvc: MockMvc
+
+    //TODO Not sure why I had to add this? Is it because I added a manyToOne Relationship in person?
+    @MockkBean
+    private lateinit var personRepository: PersonRepository
 
     @MockkBean
     private lateinit var teamRepository: TeamRepository

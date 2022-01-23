@@ -1,5 +1,5 @@
 import nock from 'nock';
-import {createTeam, getTeams} from "../teamsApiClient";
+import {createTeam, getTeams} from "../../api/teamsApiClient";
 
 describe('teamsApiClient', () => {
   it('should make a GET request to get teams when getTeams is called', async () => {
