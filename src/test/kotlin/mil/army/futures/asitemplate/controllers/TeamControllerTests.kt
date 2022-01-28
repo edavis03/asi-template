@@ -15,7 +15,7 @@ import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.get
 import org.springframework.test.web.servlet.post
 
-@WebMvcTest
+@WebMvcTest(controllers = [TeamController::class])
 @AutoConfigureMockMvc
 internal class TeamControllerTests {
     @Autowired
