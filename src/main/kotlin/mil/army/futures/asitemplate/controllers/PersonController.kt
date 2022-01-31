@@ -14,8 +14,9 @@ class PersonController(private val personRepository: PersonRepository) {
         return personRepository.save(Person(name = personName))
     }
 
-    @GetMapping("/people")
+    @GetMapping("/person")
     fun getPeople(): List<Person> {
         return personRepository.findAll()
     }
+
 }

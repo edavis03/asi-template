@@ -12,7 +12,7 @@ const getTeamsApiClient = getTeams as jest.MockedFunction<typeof getTeams>;
 describe("Teams Page", () => {
   describe("when the page loads", () => {
     it("requests the teams from the api", async () => {
-      getTeamsApiClient.mockResolvedValue(["first-team", "second-team"]);
+      getTeamsApiClient.mockResolvedValue([{id: 1, name: "first-team"}, {id: 2, name:"second-team"}]);
 
       render(<App/>);
 
@@ -30,7 +30,7 @@ describe("Teams Page", () => {
         .mockResolvedValueOnce("example-team-name");
 
       getTeamsApiClient.mockResolvedValueOnce([]);
-      getTeamsApiClient.mockResolvedValueOnce(["example-team-name"]);
+      getTeamsApiClient.mockResolvedValueOnce([{id: 1, name: "example-team-name"}]);
 
       render(<App/>);
 

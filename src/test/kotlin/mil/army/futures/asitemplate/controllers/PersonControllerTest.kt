@@ -23,11 +23,11 @@ internal class PersonControllerTest {
     private lateinit var mockMvc: MockMvc
 
     @MockkBean
-    private lateinit var mockPersonRepository: PersonRepository
+    private lateinit var personRepository: PersonRepository
 
     @Test
-    fun `when creating a person it delegates to PersonRepository`() {
-        every { mockPersonRepository.save(Person(name = "Josh White")) } returns Person(id = 1L, name = "Josh White")
+    fun `when getting people it delegates to PersonRepository`() {
+        every { personRepository.save(Person(name = "Josh White")) } returns Person(id = 1L, name = "Josh White")
 
         mockMvc.post("/createPerson") {
             contentType = MediaType.TEXT_PLAIN
@@ -38,26 +38,25 @@ internal class PersonControllerTest {
         }
 
         verify(exactly = 1) {
-            mockPersonRepository.save(Person(name = "Josh White"))
+            personRepository.save(Person(name = "Josh White"))
         }
     }
 
     @Test
     fun `when getting people it delegates to PeopleRepository`() {
-        every { mockPersonRepository.findAll() } returns listOf(
-            Person(id = 1L, name = "Colton White"),
-            Person(id = 2L, name = "Easton White")
+        every { personRepository.findAll() } returns listOf(
+            Person(id = 1L, name = "Easton White"),
+            Person(id = 2L, name = "Colton White")
         )
 
-        mockMvc.get("/people")
+        mockMvc.get("/person")
             .andDo { print() }
             .andExpect {
                 status { isOk() }
-                content { string(CoreMatchers.containsString("Colton White")) }
                 content { string(CoreMatchers.containsString("Easton White")) }
+                content { string(CoreMatchers.containsString("Colton White")) }
             }
 
-        verify(exactly = 1) { mockPersonRepository.findAll() }
+        verify(exactly = 1) { personRepository.findAll() }
     }
-
 }

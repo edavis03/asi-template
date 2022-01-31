@@ -1,9 +1,10 @@
 import React, { FormEvent, useEffect, useState } from "react";
 import "./App.css";
-import { createTeam, getTeams } from "./teamsApiClient";
+import {createTeam, getTeams, Team} from "./teamsApiClient";
+import {TeamCard} from "./components/TeamCard";
 
 function App() {
-  const [teams, setTeams] = useState<string[]>([]);
+  const [teams, setTeams] = useState<Team[]>([]);
   const [teamName, setTeamName] = useState<string>("");
 
   const setTeamNameFromInput = (e: FormEvent<HTMLInputElement>) => {
@@ -24,8 +25,8 @@ function App() {
   return (
     <>
       <ul>
-        {teams.map((team, i) => (
-          <li key={i}>{team}</li>
+        {teams.map((team) => (
+          <TeamCard key={team.id} team={team}/>
         ))}
       </ul>
 

@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RestController
 class TeamController(private val teamRepository: TeamRepository) {
 
     @GetMapping("/teams")
-    fun getTeam(): List<String> {
-        return teamRepository.findAll().map { it.name }
+    fun getTeam(): List<Team> {
+        return teamRepository.findAll()
     }
 
     @PostMapping("/team")
