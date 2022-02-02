@@ -1,13 +1,18 @@
 import {Team} from "../Api/teamsApiClient";
+import {Person} from "../Api/peopleApiClient";
+import {PeopleList} from "./PeopleList";
 
 export interface TeamCardProps {
   team: Team
+  teamMembers: Person[]
 }
 
-export const TeamCard = (props: TeamCardProps) => {
+export const TeamCard = ({team, teamMembers}: TeamCardProps) => {
   return (
     <li>
-      {props.team.name}
+      {team.name}
+      <PeopleList teamMembers={teamMembers}/>
     </li>
+
   )
 }

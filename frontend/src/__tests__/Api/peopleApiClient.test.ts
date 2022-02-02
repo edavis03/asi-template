@@ -17,7 +17,7 @@ it('should make a POST request to create a person when createPerson is called', 
     reqheaders: {
       'Content-Type': 'text/plain'
     }
-  }).post('/createPerson',  'Easton White')
+  }).post('/createPerson', 'Easton White')
     .reply(200, {id: '1', name: 'Easton White'})
 
   const response = await createPerson("Easton White")
