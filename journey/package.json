@@ -1,10 +1,16 @@
 {
   "scripts": {
-    "cypress:open": "cypress open"
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
+    "open": "./stop-server.sh && start-server-and-test 'cd .. && ./gradlew bootRun' http://localhost:8080 'yarn cypress:open'",
+    "test": "./stop-server.sh && start-server-and-test 'cd .. && ./gradlew bootRun' http://localhost:8080 'yarn cypress:run'"
   },
   "dependencies": {
     "@testing-library/cypress": "^8.0.2",
     "cypress": "^9.2.1",
     "typescript": "^4.5.4"
+  },
+  "devDependencies": {
+    "start-server-and-test": "^1.12.3"
   }
 }

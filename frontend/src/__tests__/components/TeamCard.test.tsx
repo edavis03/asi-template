@@ -1,6 +1,6 @@
 import {render, screen} from "@testing-library/react";
 import {TeamCard} from "../../components/TeamCard";
-import {Team} from "../../teamsApiClient";
+import {Team} from "../../Api/teamsApiClient";
 
 describe("TeamCard", () => {
   it('should display the name of the team', () => {
@@ -10,6 +10,6 @@ describe("TeamCard", () => {
 
     render(<TeamCard team={team}/>)
 
-    expect(screen.getByText("Goat Team")).toBeVisible()
+    expect(screen.getByText('Goat Team')).toBeVisible()
   });
 })

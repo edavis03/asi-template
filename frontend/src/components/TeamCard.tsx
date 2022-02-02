@@ -1,4 +1,4 @@
-import {Team} from "../teamsApiClient";
+import {Team} from "../Api/teamsApiClient";
 
 export interface TeamCardProps {
   team: Team
