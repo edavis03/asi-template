@@ -1,22 +1,37 @@
 package mil.army.futures.asitemplate.controllers
 
 import mil.army.futures.asitemplate.Team
-import mil.army.futures.asitemplate.repositories.TeamRepository
+import mil.army.futures.asitemplate.services.TeamService
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder
+import java.net.URI
+
 
 @RestController
-class TeamController(private val teamRepository: TeamRepository) {
+class TeamController(private val teamService: TeamService) {
 
     @GetMapping("/teams")
-    fun getTeam(): List<String> {
-        return teamRepository.findAll().map { it.name }
+    fun getTeams(): List<String> {
+        val teamNames = ArrayList<String>()
+        for (team in teamService.getTeams()) {
+            teamNames.add(team.name)
+        }
+        return teamNames
     }
 
-    @PostMapping("/team")
-    fun createTeam(@RequestBody teamName: String): String {
-        return teamRepository.save(Team(name = teamName)).name
+    @PostMapping("/teams")
+    fun createTeam(@RequestBody teamName: String): ResponseEntity<String> {
+        val savedTeam = teamService.createTeam(Team(name = teamName))
+        val location = createResourceLocation("/teams", savedTeam.id)
+        return ResponseEntity.created(location).body(savedTeam.name)
+    }
+
+    private fun createResourceLocation(path: String, resourceId: Long): URI {
+        return ServletUriComponentsBuilder.fromCurrentRequestUri().port("8080").path(path)
+            .buildAndExpand(resourceId).toUri()
     }
 }
