@@ -3,6 +3,7 @@ import axios from "axios";
 export interface Person {
   id?: number,
   name: string
+  teamId?: number
 }
 
 export async function getPeople(): Promise<Person[]> {

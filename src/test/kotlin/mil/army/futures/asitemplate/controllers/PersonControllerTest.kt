@@ -9,7 +9,6 @@ import mil.army.futures.asitemplate.repositories.PersonRepository
 import org.hamcrest.CoreMatchers
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
@@ -17,7 +16,6 @@ import org.springframework.test.web.servlet.get
 import org.springframework.test.web.servlet.post
 
 @WebMvcTest(controllers = [PersonController::class])
-@AutoConfigureMockMvc
 internal class PersonControllerTest {
     @Autowired
     private lateinit var mockMvc: MockMvc
@@ -27,7 +25,14 @@ internal class PersonControllerTest {
 
     @Test
     fun `when getting people it delegates to PersonRepository`() {
-        every { personRepository.save(Person(name = "Josh White")) } returns Person(id = 1L, name = "Josh White")
+        every {
+            personRepository.save(
+                Person(
+                    name = "Josh White",
+                    teamId = Team(name = "Unallocated")
+                )
+            )
+        } returns Person(id = 1L, name = "Josh White", teamId = Team(id = 1, name = "Unallocated"))
 
         mockMvc.post("/createPerson") {
             contentType = MediaType.TEXT_PLAIN

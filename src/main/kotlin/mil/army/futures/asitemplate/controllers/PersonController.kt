@@ -1,6 +1,7 @@
 package mil.army.futures.asitemplate.controllers
 
 import mil.army.futures.asitemplate.Person
+import mil.army.futures.asitemplate.Team
 import mil.army.futures.asitemplate.repositories.PersonRepository
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController
 class PersonController(private val personRepository: PersonRepository) {
     @PostMapping("/createPerson")
     fun createPerson(@RequestBody personName: String): Person {
-        return personRepository.save(Person(name = personName))
+        return personRepository.save(Person(name = personName, teamId = Team(name = "Unallocated")))
     }
 
     @GetMapping("/person")

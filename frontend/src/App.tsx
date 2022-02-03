@@ -4,7 +4,7 @@ import {getTeams, Team} from "./Api/teamsApiClient";
 import {TeamCard} from "./components/TeamCard";
 import {TeamCreator} from "./components/TeamCreator";
 import {PeopleCreator} from "./components/PeopleCreator";
-import {Person} from "./Api/peopleApiClient";
+import {getPeople, Person} from "./Api/peopleApiClient";
 
 function App() {
   const [teams, setTeams] = useState<Team[]>([]);
@@ -17,6 +17,7 @@ function App() {
 
   useEffect(() => {
     getTeams().then(setTeams);
+    getPeople().then(setPeople)
   }, [refresh]);
 
   return (
@@ -24,7 +25,9 @@ function App() {
       <div>
         <ul>
           {teams.map((team) => (
-            <TeamCard key={team.id} team={team}/>
+            <TeamCard key={team.id} team={team} teamMembers={people.filter(person => {
+              return person.teamId === team.id
+            })}/>
           ))}
         </ul>
       </div>
