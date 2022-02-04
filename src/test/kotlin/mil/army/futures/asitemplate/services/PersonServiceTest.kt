@@ -50,11 +50,10 @@ internal class PersonServiceTest {
         every {
             mockPersonRepository.save(
                 Person(
-                    name = "Josh White",
-                    teamId = Team(name = "Unallocated")
+                    name = "Josh White"
                 )
             )
-        } returns Person(id = 1L, name = "Josh White", teamId = Team(id = 1, name = "Unallocated"))
+        } returns Person(id = 1L, name = "Josh White", team = Team(id = 1, name = "Unallocated"))
 
         val expectedReturn = PersonDTO(id = 1L, name = "Josh White", teamId = 1L)
 
@@ -62,8 +61,7 @@ internal class PersonServiceTest {
 
         assertThat(result).isEqualTo(expectedReturn)
         verify(exactly = 1) { mockPersonRepository.save(Person(
-            name = "Josh White",
-            teamId = Team(name = "Unallocated")
+            name = "Josh White"
         )) }
     }
 }

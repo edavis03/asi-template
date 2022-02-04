@@ -11,12 +11,12 @@ class PersonService(private val personRepository: PersonRepository) {
     fun getPeople(): List<PersonDTO> {
         val allPeople = personRepository.findAll()
 
-        return allPeople.map { person -> PersonDTO(id = person.id, name = person.name, teamId = person.teamId.id) }
+        return allPeople.map { person -> PersonDTO(id = person.id, name = person.name, teamId = person.team.id) }
     }
 
     fun createPerson(personName: String): PersonDTO {
-        val newPerson = personRepository.save(Person(name = personName, teamId = Team(name = "Unallocated")))
+        val newPerson = personRepository.save(Person(name = personName))
 
-        return PersonDTO(id = newPerson.id, name = newPerson.name, teamId = newPerson.teamId.id)
+        return PersonDTO(id = newPerson.id, name = newPerson.name, teamId = newPerson.team.id)
     }
 }

@@ -9,6 +9,6 @@ data class Person(
     val id: Long = 0,
     val name: String,
     @ManyToOne
-    val teamId: Team
+    val team: Team = Team(id = 1, name = "Unallocated")
 )
 
