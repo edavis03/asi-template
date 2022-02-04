@@ -1,0 +1,1 @@
+alter table person add column team_id INT not null default 1 constraint fk_team references team (id);

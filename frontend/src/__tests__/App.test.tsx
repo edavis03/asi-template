@@ -18,22 +18,4 @@ describe("Teams Page", () => {
 
     });
   });
-
-  // describe("creating", () => {
-  //
-  //   it("appends the team name to the list", async () => {
-  //     when(createTeam)
-  //       .calledWith("example-team-name")
-  //       .mockResolvedValueOnce("example-team-name");
-  //
-  //     getTeamsApiClient.mockResolvedValueOnce([]);
-  //     getTeamsApiClient.mockResolvedValueOnce([{id: 1, name: "example-team-name"}]);
-  //
-  //     render(<App/>);
-  //
-  //     userEvent.type(screen.getByLabelText("Team Name"), "example-team-name");
-  //     userEvent.click(screen.getByRole("button", {name: /submit/i}));
-  //     expect(await screen.findByText("example-team-name")).toBeVisible();
-  //   });
-  // });
 });

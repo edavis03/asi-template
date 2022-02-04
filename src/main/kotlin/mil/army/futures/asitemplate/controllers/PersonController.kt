@@ -1,23 +1,22 @@
 package mil.army.futures.asitemplate.controllers
 
-import mil.army.futures.asitemplate.Person
-import mil.army.futures.asitemplate.Team
-import mil.army.futures.asitemplate.repositories.PersonRepository
+import mil.army.futures.asitemplate.PersonDTO
+import mil.army.futures.asitemplate.services.PersonService
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-class PersonController(private val personRepository: PersonRepository) {
+class PersonController(private val personService: PersonService) {
     @PostMapping("/createPerson")
-    fun createPerson(@RequestBody personName: String): Person {
-        return personRepository.save(Person(name = personName, teamId = Team(name = "Unallocated")))
+    fun createPerson(@RequestBody personName: String): PersonDTO {
+        return personService.createPerson(personName)
     }
 
     @GetMapping("/person")
-    fun getPeople(): List<Person> {
-        return personRepository.findAll()
+    fun getPeople(): List<PersonDTO> {
+        return personService.getPeople()
     }
 
 }
