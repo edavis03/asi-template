@@ -59,4 +59,19 @@ internal class PersonControllerTest {
 
         verify(exactly = 1) { personService.getPeople() }
     }
+
+    @Test
+    fun `when changing persons team delegates to PeopleRepository`() {
+        val expectedPerson = PersonDTO(id = 1L, name = "Vinny", teamId = 2)
+        every { personService.changeTeams(1L, 2L) } returns expectedPerson
+
+        mockMvc.post("/changeTeam/1/2")
+            .andDo { print() }
+            .andExpect {
+                status { isOk() }
+                content { PersonDTO(id = 1L, name = "Vinny", teamId = 2) }
+            }
+
+        verify(exactly = 1) { personService.changeTeams(1L, 2L) }
+    }
 }

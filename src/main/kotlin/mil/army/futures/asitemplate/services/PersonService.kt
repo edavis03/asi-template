@@ -19,4 +19,8 @@ class PersonService(private val personRepository: PersonRepository) {
 
         return PersonDTO(id = newPerson.id, name = newPerson.name, teamId = newPerson.team.id)
     }
+
+    fun changeTeams(personId: Long, teamId: Long): PersonDTO {
+        TODO("Not yet implemented")
+    }
 }
