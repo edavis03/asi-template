@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export interface Team {
-  id?: number,
+  id: number,
   name: string
 }
 

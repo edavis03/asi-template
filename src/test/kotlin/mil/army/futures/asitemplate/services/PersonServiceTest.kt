@@ -8,9 +8,11 @@ import mil.army.futures.asitemplate.Person
 import mil.army.futures.asitemplate.PersonDTO
 import mil.army.futures.asitemplate.Team
 import mil.army.futures.asitemplate.repositories.PersonRepository
+import mil.army.futures.asitemplate.repositories.TeamRepository
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.springframework.data.repository.findByIdOrNull
 
 internal class PersonServiceTest {
 
@@ -19,10 +21,14 @@ internal class PersonServiceTest {
     @MockkBean
     private lateinit var mockPersonRepository: PersonRepository
 
+    @MockkBean
+    private lateinit var mockTeamRepository: TeamRepository
+
     @BeforeEach
     fun Setup() {
         mockPersonRepository = mockk()
-        personService = PersonService(mockPersonRepository)
+        mockTeamRepository = mockk()
+        personService = PersonService(mockPersonRepository, mockTeamRepository)
     }
 
     @Test
@@ -60,8 +66,40 @@ internal class PersonServiceTest {
         val result = personService.createPerson("Josh White")
 
         assertThat(result).isEqualTo(expectedReturn)
-        verify(exactly = 1) { mockPersonRepository.save(Person(
-            name = "Josh White"
-        )) }
+        verify(exactly = 1) {
+            mockPersonRepository.save(
+                Person(
+                    name = "Josh White"
+                )
+            )
+        }
+    }
+
+    @Test
+    fun `if a valid team changes a person to that team`() {
+        every { mockPersonRepository.findByIdOrNull(1) } returns Person(
+            id = 1L,
+            name = "Fran",
+            team = Team(id = 1L, name = "Unallocated")
+        )
+
+        every { mockTeamRepository.findByIdOrNull(2) } returns Team(
+            id = 2L,
+            name = "New Team"
+        )
+
+        val personWithNewTeam = Person(id = 1L, name = "Fran", team = Team(id = 2L, name = "New Team"))
+
+        every { mockPersonRepository.save(personWithNewTeam) } returns personWithNewTeam
+
+        val expectedReturn = PersonDTO(id = 1L, name = "Fran", teamId = 2L)
+
+        val result = personService.changeTeams(1, 2)
+
+        assertThat(result).isEqualTo(expectedReturn)
+
+        verify(exactly = 1) { mockPersonRepository.save(any()) }
+        verify(exactly = 1) { mockPersonRepository.findByIdOrNull(1) }
+        verify(exactly = 1) { mockTeamRepository.findByIdOrNull(2) }
     }
 }

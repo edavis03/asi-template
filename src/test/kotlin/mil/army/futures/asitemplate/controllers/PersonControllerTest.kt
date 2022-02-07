@@ -61,7 +61,7 @@ internal class PersonControllerTest {
     }
 
     @Test
-    fun `when changing persons team delegates to PeopleRepository`() {
+    fun `when changing persons team delegates to PeopleService`() {
         val expectedPerson = PersonDTO(id = 1L, name = "Vinny", teamId = 2)
         every { personService.changeTeams(1L, 2L) } returns expectedPerson
 

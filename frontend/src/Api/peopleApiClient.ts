@@ -1,9 +1,9 @@
 import axios from "axios";
 
 export interface Person {
-  id?: number,
+  id: number,
   name: string
-  teamId?: number
+  teamId: number
 }
 
 export async function getPeople(): Promise<Person[]> {
@@ -13,4 +13,8 @@ export async function getPeople(): Promise<Person[]> {
 export async function createPerson(personName: string): Promise<Person> {
   return (await axios.post('/createPerson',
     personName, {headers: {'Content-Type': 'text/plain'}})).data
+}
+
+export async function changeTeams(personId: number, teamId: number): Promise<Person> {
+  return (await axios.post(`/changeTeam/${personId}/${teamId}`)).data
 }
